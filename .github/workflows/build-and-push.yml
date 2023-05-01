@@ -1,0 +1,58 @@
+name: Build and push Docker Image
+on:
+  push:
+    branches:
+      - "master"
+jobs:
+  build_push:
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    - name: Write value to Properties-file
+      env: 
+        MONGO_DB_HOST: {{ secrets.MONGO_DB_HOST }}
+        MONGO_DB_PW: {{ secrets.MONGO_DB_PW }}
+        MONGO_DB_USER: {{ secrets.MONGO_DB_USER }}
+        JWT_SECRET: {{ secrets.JWT_SECRET }}
+      uses: christian-draeger/write-properties@1.1.0
+      with:
+        path: './src/main/resources/application.properties'
+        property: |
+          'spring.data.mongodb.authentication-database'
+          'spring.data.mongodb.username'
+          'spring.data.mongodb.password'
+          'spring.data.mongodb.database'
+          'spring.data.mongodb.port'
+          'spring.data.mongodb.host'
+          'server.port'
+          'spring.application.name'
+          'server.servlet.context-path'
+          'grthomelab.app.jwtExpirationMs'
+          'grthomelab.app.jwtSecret'
+        value: |
+          'admin'
+          '$MONGO_DB_USER'
+          '$MONGO_DB_PW
+          'randomAcro'
+          '27017'
+          '$MONGO_DB_HOST'
+          '8102'
+          'Backend'
+          '/api'
+          '86400000'
+          '$JWT_SECRET'
+    -
+      name: Set up QEMU
+      uses: docker/setup-qemu-action@v2
+    -
+      name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+    -
+      name: Build and export to Docker
+      uses: docker/build-push-action@v4
+      with:
+        registry: registry.grthomelab.com
+        repository: grthomelab-backend
+        tags: latest
