@@ -6,11 +6,12 @@ COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
+RUN chmod +x ./mvnw
 
 RUN --mount=type=cache,target=/root/.m2 ./mvnw install -DskipTests
 RUN mkdir -p target/extracted && (cd /usr/src/app/target/extracted; java -Djarmode=layertools -jar /usr/src/app/target/backend.jar extract --destination /usr/src/app/target/extracted)
 
-FROM eclipse-temurin:17-jdk-alpine
+FROM eclipse-temurin:17-jre-alpine
 VOLUME /tmp
 ARG EXTRACTED=/usr/src/app/target/extracted
 COPY --from=build ${EXTRACTED}/dependencies/ ./
