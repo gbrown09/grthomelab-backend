@@ -10,6 +10,8 @@ jobs:
     -
       name: Checkout
       uses: actions/checkout@v3
+    - name: print contents
+      run: ls . -a
     - uses: "finnp/create-file-action@master"
       env:
         FILE_NAME: './src/main/resources/application.properties'
@@ -51,6 +53,5 @@ jobs:
       name: Build and export to Docker
       uses: docker/build-push-action@v4
       with:
-        registry: registry.grthomelab.com
-        repository: grthomelab-backend
-        tags: latest
+        push: true
+        tags: registry.grthomelab.com:5000/grthomelab/backend:latest
