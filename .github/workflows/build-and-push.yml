@@ -30,16 +30,16 @@ jobs:
           grthomelab.app.jwtSecret
         value: |
           admin
-          {{ secrets.MONGO_DB_USER }}
-          {{ secrets.MONGO_DB_PW }}
+          ${{ secrets.MONGO_DB_USER }}
+          ${{ secrets.MONGO_DB_PW }}
           randomAcro
           27017
-          {{ secrets.MONGO_DB_HOST }}
+          ${{ secrets.MONGO_DB_HOST }}
           8102
           Backend
           /api
           86400000
-          {{ secrets.JWT_SECRET }}
+         ${{ secrets.JWT_SECRET }}
     -
         name: Login to GitHub Container Registry
         uses: docker/login-action@v2
