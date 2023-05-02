@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v3
     - name: print contents
       run: ls . -a
-    - name: Write value to Properties-file
+    - name: Write simple value to application.properties file
       uses: GuillaumeFalourd/write-java-properties-file@v1
       with:
         file_path: ./src/main/resources/application.properties
