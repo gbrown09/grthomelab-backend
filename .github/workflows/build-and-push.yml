@@ -47,6 +47,5 @@ jobs:
       name: Build and export to Docker
       uses: docker/build-push-action@v4
       with:
-        context: .
         push: true
-        tags: registry.grthomelab.com/grthomelab_backend:latest
+        tags: registry.grthomelab.com/grthomelab/backend:latest
