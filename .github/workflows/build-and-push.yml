@@ -44,14 +44,16 @@ jobs:
           '86400000'
           {{ secrets.JWT_SECRET }}
     -
-      name: Set up QEMU
-      uses: docker/setup-qemu-action@v2
-    -
-      name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+        name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
     -
       name: Build and export to Docker
       uses: docker/build-push-action@v4
       with:
+        context: .
         push: true
-        tags: registry.grthomelab.com/grthomelab/backend:latest
+        tags: ghcr.io/gbrown09/grthomelab_backend:latest
