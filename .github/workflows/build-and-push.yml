@@ -56,4 +56,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: ghcr.io/gdbrown09/grthomelab_backend:latest
+        tags: ghcr.io/gbrown09/grthomelab_backend:latest
