@@ -13,32 +13,32 @@ jobs:
     - name: print contents
       run: ls . -a
     - name: Write value to Properties-file
-      uses: christian-draeger/write-properties@1.1.0
+      uses: GuillaumeFalourd/write-java-properties-file@v1
       with:
-        path: './src/main/resources/application.properties'
+        file_path: ./src/main/resources/application.properties
         property: |
-          'spring.data.mongodb.authentication-database'
-          'spring.data.mongodb.username'
-          'spring.data.mongodb.password'
-          'spring.data.mongodb.database'
-          'spring.data.mongodb.port'
-          'spring.data.mongodb.host'
-          'server.port'
-          'spring.application.name'
-          'server.servlet.context-path'
-          'grthomelab.app.jwtExpirationMs'
-          'grthomelab.app.jwtSecret'
+          spring.data.mongodb.authentication-database
+          spring.data.mongodb.username
+          spring.data.mongodb.password
+          spring.data.mongodb.database
+          spring.data.mongodb.port
+          spring.data.mongodb.host
+          server.port
+          spring.application.name
+          server.servlet.context-path
+          grthomelab.app.jwtExpirationMs
+          grthomelab.app.jwtSecret
         value: |
-          'admin'
+          admin
           {{ secrets.MONGO_DB_USER }}
           {{ secrets.MONGO_DB_PW }}
-          'randomAcro'
-          '27017'
+          randomAcro
+          27017
           {{ secrets.MONGO_DB_HOST }}
-          '8102'
-          'Backend'
-          '/api'
-          '86400000'
+          8102
+          Backend
+          /api
+          86400000
           {{ secrets.JWT_SECRET }}
     -
         name: Login to GitHub Container Registry
